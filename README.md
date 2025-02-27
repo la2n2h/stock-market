@@ -241,5 +241,13 @@ apple.dividends
 | 2025-02-10 00:00:00-05:00    0.250000       |
 | Name: Dividends, Length: 86, dtype: float64 |
 
+plot the dividends overtime
+```
+apple.dividents.plot(0
+```
+![download](https://github.com/user-attachments/assets/3b4bd8d5-9f26-4053-af50-b3dca86b9408)
+
+
+
 
 
