@@ -1,5 +1,5 @@
 # Stock-market
-a new startup investment firm that helps customers invest their money in stocks. Job is to extract financial data like historical share price and quarterly revenue reportings from various sources using Python libraries and webscraping on popular stocks. After collecting this data you will visualize it in a dashboard to identify patterns or trends. The stocks we will work with are Tesla, Amazon, AMD, and GameStop.
+a new startup investment firm that helps customers invest their money in stocks. Job is to extract financial data like historical share price and quarterly revenue reportings from various sources using Python libraries and webscraping on popular stocks. After collecting this data you will visualize it in a dashboard to identify patterns or trends. The stocks we will work with are Apple, Netfix, Tesla,, and GameStop.
 
 ### Dashboard Analytics Displayed
 
@@ -13,6 +13,8 @@ A stock (also known as equity) is a security that represents the ownership of a 
 An investor can buy a stock and sell it later. If the stock price increases, the investor profits. If it decreases, the investor will incur a loss.  Determining the stock price is complex; it depends on the number of outstanding shares, the size of the company's future profits, and much more. People trade stocks throughout the day. The stock ticker is a report of the price of a certain stock, updated continuously throughout the trading session by the various stock market exchanges. 
 
 # PROCESS
+
+## Apple
 
 ### install yfinance and matplotib library
 ```
@@ -247,6 +249,69 @@ apple.dividents.plot(0
 ```
 ![download](https://github.com/user-attachments/assets/3b4bd8d5-9f26-4053-af50-b3dca86b9408)
 
+## Netfix
+import library
+```
+!pip install pandas
+!pip install requests
+!pip install bs4
+!pip install html5lib 
+!pip install lxml
+!pip install plotly
+```
+```
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup as bs
+```
+```
+import warnings
+# Ignore all warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
+```
+
+
+### Send an HTTP request to the web page
+```
+url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-PY0220EN-SkillsNetwork/labs/project/netflix_data_webpage.html"
+data = requests.get(url).text
+print(data)
+```
+
+### Parse the HTML content
+create a new BeautifulSoup object
+```
+soup = bs(data,'html.parser')
+```
+
+### crape the content of the HTML web page and convert the table into a data frame.
+
+```
+netflix_data=pd.DataFrame(columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
+data_list = []
+for row in soup.find('tbody').find_all('tr'):
+    col = row.find_all('td')
+    date = col[0].text
+    Open = col[1].text
+    high = col[2].text
+    low = col[3].text
+    close = col[4].text
+    adj_close = col[5].text
+    volume = col[6].text
+    data_list.append([date , Open, high, low, close, adj_close, volume])
+netflix_data=pd.DataFrame(data_list, columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
+```
+print out the data frame
+```
+netflix_data.head()
+```
+| Date | Open         | High   | Low    | Close  | Adj Close | Volume |
+|------|--------------|--------|--------|--------|-----------|--------|
+| 0    | Jun 01, 2021 | 504.01 | 536.13 | 482.14 | 528.21    | 528.21 | 78,560,600  |
+| 1    | May 01, 2021 | 512.65 | 518.95 | 478.54 | 502.81    | 502.81 | 66,927,600  |
+| 2    | Apr 01, 2021 | 529.93 | 563.56 | 499.00 | 513.47    | 513.47 | 111,573,300 |
+| 3    | Mar 01, 2021 | 545.57 | 556.99 | 492.85 | 521.66    | 521.66 | 90,183,900  |
+| 4    | Feb 01, 2021 | 536.79 | 566.65 | 518.28 | 538.85    | 538.85 | 61,902,300  |
 
 
 
